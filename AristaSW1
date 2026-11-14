@@ -1,0 +1,76 @@
+! Command: show running-config
+! device: AristaSW1 (vEOS-lab, EOS-4.29.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname AristaSW1
+!
+spanning-tree mode mstp
+!
+vlan 10
+   name Production
+!
+vlan 20
+   name Endpoints
+!
+vlan 30
+   name Admin
+!
+interface Port-Channel1
+   description LACP to peer switch
+   switchport trunk allowed vlan 10,20,30
+   switchport mode trunk
+!
+interface Ethernet1
+   switchport access vlan 10
+!
+interface Ethernet2
+   switchport access vlan 10
+!
+interface Ethernet3
+   switchport access vlan 20
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Ethernet9
+!
+interface Ethernet10
+!
+interface Ethernet11
+   description Upling to peer switch
+   channel-group 1 mode active
+!
+interface Ethernet12
+   description Upling to peer switch
+   channel-group 1 mode active
+!
+interface Management1
+!
+interface Vlan10
+   description ProductionTEST
+   ip address 10.100.100.1/24
+!
+interface Vlan20
+   description UserEndpointTest
+   ip address 10.100.200.1/24
+!
+interface Vlan30
+   ip address 10.100.30.1/24
+!
+ip routing
+!
+end
